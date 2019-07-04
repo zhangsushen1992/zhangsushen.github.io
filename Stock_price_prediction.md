@@ -8,7 +8,7 @@ Stock prices in the US market can be downloaded from Quandl. Stock prices of the
 To read stock data (including opening and closing prices), we use the following command:
 ```
 import tushare as ts
-df = ts.get__hist_data('600519',start = '2018-05-01', end = '2019-05-01')
+df = ts.get_hist_data('600519',start = '2018-05-01', end = '2019-05-01')
 print(df.head())
 ```
 This outputs the first 5 lines of the stock data. With this dataframe, df, we can manipulate the data to run on machine learning frameworks.
@@ -25,7 +25,7 @@ from torch.autograd import Variable
 ```
 Then we transform the data from the dataframe, df, into tensors that can be read by Pytorch. Our purpose is to predict the closing price on the next day based on the high, low, opening and closing prices on the previous day. We add one dimension to each dataframe and convert them to **Variable**.
 ```
-df1 = df.iloc[:-1,1:4].values
+df1 = df.iloc[:-1,1:5].values
 xtrain_features = torch.FloatTensor(df1)
 df2 = df.iloc[1:,3].values
 ytrain_features = torch.FloatTensor(df2)
@@ -64,7 +64,7 @@ for epoch in range (100000):
   optimizer.step()
   
   if epoch%20 == 0:
-    print (Epoch[{}], loss:{:.6f}'.format(epoch,loss.data[0])
+    print ('Epoch[{}], loss:{:.6f}'.format(epoch,loss.data))
 ```
 
 

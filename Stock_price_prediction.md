@@ -1,4 +1,4 @@
-## Mini-project: Stock Price Prediction
+## Mini-project: Stock Price Prediction with a 'Shallow' Neural Network
 
 We have seen simple machine learning techniques being applied to multiple fields that require data analysis. This mini-project serves to illustrate some of the simple machine learning techniques used to play with the stock price data. The machine learning framework used is Pytorch.
 

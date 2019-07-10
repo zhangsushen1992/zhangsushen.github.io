@@ -2,16 +2,14 @@
 
 The page contains the following topics:
 ### 1. Quantitative analysis of finance data
-1.1 [Johansen test on the stock prices] (https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/johansen_test.md)
-1.2 [Stock price prediction with Neural Network]
-(https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/stock_price_prediction.md)
+1.1 [Johansen test on the stock prices](https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/johansen_test.md)
+1.2 [Stock price prediction with Neural Network](https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/stock_price_prediction.md)
 
 ### 2. Mathematics tricks
 2.1 []
 
 ### 3. Popular dataset
-3.1 [Playing with the Iris dataset]
-(https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/iris_dataset.md)
+3.1 [Playing with the Iris dataset](https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/iris_dataset.md)
 
 
 ### Markdown

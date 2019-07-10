@@ -1,11 +1,17 @@
 ## Welcome to Sushen's GitHub Pages
 
 The page contains the following topics:
-1. Quantitative analysis of finance data
-[Johansen test on the stock prices] (https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/johansen.md)
+### 1. Quantitative analysis of finance data
+1.1 [Johansen test on the stock prices] (https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/johansen_test.md)
+1.2 [Stock price prediction with Neural Network]
+(https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/stock_price_prediction.md)
 
-2. Mathematics tricks
+### 2. Mathematics tricks
+2.1 []
 
+### 3. Popular dataset
+3.1 [Playing with the Iris dataset]
+(https://github.com/zhangsushen1992/zhangsushen.github.io/edit/master/iris_dataset.md)
 
 
 ### Markdown
@@ -32,10 +38,3 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/zhangsushen1992/zhangsushen.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.

@@ -15,7 +15,7 @@ Three categories of architecture search include:
 
 ### Search Space
 
-1) Chain-structured neural networks:
+1) **Chain-structured neural networks**:
 
 A sequence of _n_ layers, where the _i_'th layer _L<sub>i</sub>_ receives input from _L<sub>i-1</sub>_ and output to _L<sub>i+1</sub>_. The architecture _A_ = _L_<sub>n</sub>◦...◦ _L_<sub>1</sub>◦ _L_<sub>0</sub>. The search space is parameterised by:
 
@@ -27,7 +27,7 @@ A sequence of _n_ layers, where the _i_'th layer _L<sub>i</sub>_ receives input 
 
 (3) depends on (2) hence the search space is conditional.
 
-2) Multi-branch networks:
+2) **Multi-branch networks**:
 
 Input to layer _i_ is a function _g<sub>i</sub>_(_L_<sub>i-1</sub><sup>out</sup>,...,_L_<sub>0</sub><sup>out</sup>), combining previous layer outputs. Special cases include: 
 
@@ -37,11 +37,15 @@ Input to layer _i_ is a function _g<sub>i</sub>_(_L_<sub>i-1</sub><sup>out</sup>
 
 (3) DenseNets: concatenate previous layer outputs: _g<sub>i</sub>_(_L_<sub>i-1</sub><sup>out</sup>,...,_L_<sub>0</sub><sup>out</sup>)=_concat_(_L_<sub>i-1</sub><sup>out</sup>,...,_L_<sub>0</sub><sup>out</sup>)
 
-3) Repeated Mortifs
+3) **Repeated Mortifs**:
 
 Architecture can be viewed as repeated motifs, sometimes dubbed cells or blocks. For example, normal cell preserves dimensionality while reduction cell reduces spatial dimension. Final architecture is constructed by stacking cells in a predefined manner. The advantage of this includes:
 
 (1) Reduce search space.
 (2) Cells more adaptable to different datasets.
 
-Problem is how to choose meta-architecture, namely how to connect cells. Ideally the meta-architecture should be optimised automatically as part of NAS.
+Problem is how to choose meta-architecture, namely how to connect cells. Ideally the meta-architecture should be optimised automatically as part of NAS. Even search space based on a single cell with fixed meta-architecture is difficult: the optimisation is non-continuous and high-dimensional. Unbounded search space can be constrained by defining maximal depth, generating fixed-size search spaces with conditional dimensions.
+
+### Search Strategy
+
+Search strategies include random search, Bayesian optimisation, evolutionary methods, reinforcement learning and gradient based methods. To frame as RL problem, the generation of neural architecture can be seen as agent's action, with the action space identical to search space. The agent's reward is based on an estimate of the performance of the trained architecutre on unseen data.

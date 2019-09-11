@@ -53,4 +53,9 @@ Search strategies include random search, Bayesian optimisation, evolutionary met
 ### Performance Estimation Strategy
 Performance estimation is necessary to evaluate a certain architecture _A_. Simplist is to train _A_ on training data and evaluate on validation data but this often requires thousands of GPU days. To reduce computational burden, performance is estimated based on lower fideliites of the actual performance after full training (aka proxy metrics). Lower fidelities include shorter training times, training on a subset of data, on lower-resolution images, or with less filters per layer. This introduces bias, but if the relative ranking of architectures remain stable, this is not a problem. Some research also argue the difference can be dramatic, proposing the use of higher fidelities.
 
-Another way to evaluate performance builds upon learning curve extrapolation. 
+Another way to evaluate performance builds upon learning curve extrapolation. Initial learning curves are extrapolated and architectures predicted to perform poorly are terminated. Some train a surrogate model to extrapolate performance based on architectural/cell porperties. The main challenge is 
+
+### Future Directions
+Many focus on image classification since 1) NAS is challenging in this area and manual engineering predominates, and 2) there is well-defined search space with knowledge from manual engineering. Other areas to apply NAS include language modelling, music modelling, image restoration, network compression; applications to reinforcement learning, generative adversarial networks, semantic segmentation, or sensor fusion.
+
+Another direction is multi-task problems and multi-objective problems, in which measures of resource efficiency are used as objectives along with the predictive performance on unseen data.

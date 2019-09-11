@@ -49,3 +49,8 @@ Problem is how to choose meta-architecture, namely how to connect cells. Ideally
 ### Search Strategy
 
 Search strategies include random search, Bayesian optimisation, evolutionary methods, reinforcement learning and gradient based methods. To frame as RL problem, the generation of neural architecture can be seen as agent's action, with the action space identical to search space. The agent's reward is based on an estimate of the performance of the trained architecutre on unseen data.
+
+### Performance Estimation Strategy
+Performance estimation is necessary to evaluate a certain architecture _A_. Simplist is to train _A_ on training data and evaluate on validation data but this often requires thousands of GPU days. To reduce computational burden, performance is estimated based on lower fideliites of the actual performance after full training (aka proxy metrics). Lower fidelities include shorter training times, training on a subset of data, on lower-resolution images, or with less filters per layer. This introduces bias, but if the relative ranking of architectures remain stable, this is not a problem. Some research also argue the difference can be dramatic, proposing the use of higher fidelities.
+
+Another way to evaluate performance builds upon learning curve extrapolation. 

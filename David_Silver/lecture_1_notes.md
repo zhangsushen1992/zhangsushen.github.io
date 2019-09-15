@@ -107,3 +107,25 @@ Categorize RL agents
 - Model Based
 - - Policy and/or Value Function
 - - Model
+
+### Problems with Reinforcement Learning
+Two fundamental problems in sequential decision making:
+- Reinforcement Learning
+- - The environment is initially unknown
+- - the agent interacts with the environment
+- - The agent improves the policy
+- Planning
+- - A model of the environment is known
+- - The agent performs computations with its model (without any external interaction)
+- - The agent improves its policy
+
+RL is like trial-and-error learning
+- Agent should discover a good policy
+- From its experiences of the environment
+- Without losing too much award along the way
+
+**Exploration** finds more information about the environment
+**Exploitation** exploits known information to maximise reward
+
+**Prediction** evaluate the future given a policy
+**Control** optimise the future to find the best policy

@@ -125,7 +125,9 @@ RL is like trial-and-error learning
 - Without losing too much award along the way
 
 **Exploration** finds more information about the environment
+
 **Exploitation** exploits known information to maximise reward
 
 **Prediction** evaluate the future given a policy
+
 **Control** optimise the future to find the best policy

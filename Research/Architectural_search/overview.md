@@ -58,4 +58,10 @@ Another way to evaluate performance builds upon learning curve extrapolation. In
 ### Future Directions
 Many focus on image classification since 1) NAS is challenging in this area and manual engineering predominates, and 2) there is well-defined search space with knowledge from manual engineering. Other areas to apply NAS include language modelling, music modelling, image restoration, network compression; applications to reinforcement learning, generative adversarial networks, semantic segmentation, or sensor fusion.
 
-Another direction is multi-task problems and multi-objective problems, in which measures of resource efficiency are used as objectives along with the predictive performance on unseen data.
+Another direction is multi-task problems and multi-objective problems, in which measures of resource efficiency are used as objectives along with the predictive performance on unseen data. Likewise, extension of RL/bandit approaches is applied to learn policeis that are conditioned on a state that encodes task properties/resource requirements. One-shot NAS has been used to generate different architectures depending on the task or instance on-th-fly. 
+
+Defining more general and flexible search spaces is a related direction. Transcending standard definition of cells and architecture can increase the power of NAS. A search space allowing more general structure would make NAS more broadly applicalbe. Common search space does not allow novel building blocks hence is limited.
+
+Comparison of performance is difficult since architecture is not the single factor. For example, results on CIFAR-10 dataset differ in search space, computational budget, data augmentation, training procedures, regularization and other factors. The definition of common benchmarks is thus important. It would also be interesting to evaluation NAS as part of a full open-source AutoML system where hyperparameters and data augmentaiton pipeline are optimised along with NAS.
+
+While NAS has achieved impressive performance, it fails to provide insights to why specific architectures work well and why architectures derived in independent runs are similar. Identifying common motifs, understanding performance, and invesigating generalisation property are desirable.

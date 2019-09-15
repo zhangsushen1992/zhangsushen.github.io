@@ -67,3 +67,43 @@ An **information state** (aka Markov state) containes all useful information fro
 - - Complet history: S<sub>t</sub><sup>a</sup> = H<sub>t</sub>
 - - Beliefs of environment state: S<sub>t</sub><sup>a</sup> = (P [S<sub>t</sub><sup>e</sup> = s<sup>1</sup>],...,P[S<sub>t</sub><sup>e</sup> = s<sup>n</sup>])
 - - Recurrent neural network: S<sub>t</sub><sup>a</sup> = σ(S<sub>t-1</sub><sup>a</sup>W<sub>s</sub>+O<sub>t</sub>W<sub>o</sub>)
+
+### Inside an RL Agent
+Major components of RL agent:
+- Policy: agent's behaviour function
+- Value function: how good is each state and/or action
+- Model: agent's representation of the environment
+
+**Policy** is the agent's behaviour
+- It is a map from state to action
+- - Deterministic policy: a = π(s)
+- - Stochastic policy : π(a|s) = P[A=a | S=s]
+
+**Value function** is a prediction of future reward
+- Evaluate goodness/badness of states
+-To select between actions:
+- v<sub>π</sub>(s) = E<sub>π</sub>[R<sub>t</sub> + γR<sub>t+1</sub> + γ<sup>2</sup>R<sub>t+2</sub> + ... | S<sub>t</sub>=s]
+
+**Model** predicts what the environment will do next
+- Transitions: P predicts the next state (ie. dynamics)
+- Reward: R predicts the next (immediate) reward:
+- - e.g. P<sub>ss'</sub><sup>a</sup> = P[S'=s' | S=s, A=a]
+- - R<sub>s</sub><sup>a</sup> = E[ R | S=s, A=a]
+
+Categorize RL agents
+- Value Based
+- - No Policy (Implicit)
+- - Value Function
+- Policy Based
+- - Policy
+- - No Value Function
+- Actor Critic
+- - Policy
+- - Value Function
+
+- Model Free
+- - Policy and/or Value Function
+- - No Model
+- Model Based
+- - Policy and/or Value Function
+- - Model

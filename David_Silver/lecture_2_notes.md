@@ -7,7 +7,27 @@
 
 Markov Property
 - Definition:
-A state St is Markov if and only if
- P[S<sub>t+1</sub> | S<sub>t</sub>] = P[S<sub>t+1</sub> | S<sub>1</sub>,..., S<sub>t</sub>]
+A state S<sub>t</sub> is Markov if and only if
+P[S<sub>t+1</sub> | S<sub>t</sub>] = P[S<sub>t+1</sub> | S<sub>1</sub>,..., S<sub>t</sub>]
+
+State Transition Matrix
+For a Markov state s and successor state s', the state transition probability is defined by:
+P<sub>ss'</sub> = P[S<sub>t+1</sub>=s' | S<sub>t</sub>=s]
+
+The transition matrix P defines transition probabilities from all state s to all successor states s': \
+P = [[P<sub>11</sub> ... P<sub>1n</sub>], 
+  >> [...........], \
+  >> [P<sub>n1</sub> ... P<sub>nn</sub>]] 
+
+**Markov Process**
+- A Markov process is a memoryless random process, i.e. a sequence of random states S<sub>1</sub>, S<sub>2</sub>, ... with the Markov property.
+- Definition:
+Markov Process (or Markov Chain) is a tuple <S,P>
+- - S is a (finite) set of states
+- - P is a state transition probability matrix
+- - P<sub>ss'</sub> = P[S<sub>t+1</sub>=s' | S<sub>t</sub>=s]
+
+
  
+
  

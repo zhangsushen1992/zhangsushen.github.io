@@ -5,16 +5,16 @@
 - the current state completely characterises the process
 - almost all RL problems can be formalised as MDPs (e.g. optimal control is continous MDPs, bandits are MDPs with one state, partially observable problems can be converted to MDPs)
 
-Markov Property
+**Markov Property**
 - Definition:
 A state S<sub>t</sub> is Markov if and only if
 P[S<sub>t+1</sub> | S<sub>t</sub>] = P[S<sub>t+1</sub> | S<sub>1</sub>,..., S<sub>t</sub>]
 
-State Transition Matrix
-For a Markov state s and successor state s', the state transition probability is defined by:
+**State Transition Matrix**
+- For a Markov state s and successor state s', the state transition probability is defined by:
 P<sub>ss'</sub> = P[S<sub>t+1</sub>=s' | S<sub>t</sub>=s]
 
-The transition matrix P defines transition probabilities from all state s to all successor states s': \
+- The transition matrix P defines transition probabilities from all state s to all successor states s': \
 P = [[P<sub>11</sub> ... P<sub>1n</sub>], 
   >> [...........], \
   >> [P<sub>n1</sub> ... P<sub>nn</sub>]] 
@@ -27,7 +27,15 @@ Markov Process (or Markov Chain) is a tuple <S,P>
 - - P is a state transition probability matrix
 - - P<sub>ss'</sub> = P[S<sub>t+1</sub>=s' | S<sub>t</sub>=s]
 
+### Markov Reward Process
+A Markov reward process is a Markov chain with values.
+- Definition: A Markov Reward Process is a tuple <S,P,R,γ>
+- - S is a finite set of state
+- - P is a state transition probability matrix: P<sub>ss'</sub> = P[S<sub>t+1</sub>=s' | S<sub>t</sub>=s]
+- - R is a reward function, R<sub>s</sub> = E[R<sub>t+1</sub> | S<sub>t</sub> = s]
+- - γ is a discount factor, γ∈[0,1]
 
- 
+The return Gt is the total discounted reward from time step t.
+- G<sub>t</sub> = R<sub>t+1</sub> + γR<sub>t+2</sub> + ... = ∑<sub>k=0</sub><sup>∞</sup>γ<sup>k</sup>R<sub>t+k+1</sub>
 
  

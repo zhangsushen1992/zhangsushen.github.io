@@ -88,3 +88,24 @@ A Markov decision process (MDP) is a Markov reward process with decisions. It is
 - - P is a state transition probability matrix: P<sub>ss'</sub> = P[S<sub>t+1</sub>=s' | S<sub>t</sub>=s, A<sub>t</sub>=a]
 - - R is a reward function: R<sub>s</sub> = E[R<sub>t+1</sub> | S<sub>t</sub> = s, A<sub>t</sub>=a]
 - - γ is a discount factor 
+
+A **Policy** π is a distribution over actions given states: π(a|s) = P[A<sub>t</sub>=a | S<sub>t</sub>=s]
+- Policy fully defines the behaviour of an agent
+- MDP policies depend on the current state (not history)
+- i.e. Policies are stationary (time-independent):A<sub>t</sub>~π(⋅|S<sub>t</sub>), ∀t>0
+
+- Given an MDP M = <S,A,P,R,γ> and a policy π
+- The state sequence S<sub>1</sub>,S<sub>2</sub>,... is a Markov process <S,P<sup>π</sup>>
+- The state and reward sequence S<sub>1</sub>,R<sub>2</sub>,S<sub>2</sub>,... is a Markov reward process <S,P<sup>π</sup>,R<sup>π</sup>,γ>
+- where P<sub>ss'</sub><sup>π</sup> = ∑<sub>a∈A</sub>π(a|s)P<sub>ss'</sub><sup>a</sup>
+- R<sub>s</sub><sup>π</sup> = ∑<sub>a∈A</sub>π(a|s)R<sub>s</sub><sup>a</sup>
+
+**Value Function**
+- Definition: The state-value function v<sub>π</sub>(s) of an MDP is the expected return starting from the state s, and then following policy π: v<sub>π</sub>(s) = E<sub>π</sub>[G<sub>t</sub> | S<sub>t</sub>=s]
+- Definition: The action-value function q<sub>π</sub>(s,a) is the expected return starting from state s, taking action a, and then following policy π
+q<sub>π</sub>(s,a) = E<sub>π</sub>[G<sub>t</sub> | S<sub>t</sub>=s, A<sub>t</sub>=a]
+
+**Bellman Expectation Equation**
+- The state-value function can again be decomposed into immediate reward plus discounted value of successor state,
+v<sub>π</sub>(s) = E<sub>π</sub>[R<sub>t+1</sub> + γv<sub>π</sub>(S<sub>t+1</sub>) | S<sub>t</sub>=s]
+- The action-value function can similarly be decomposed, q<sub>π</sub>(s,a) = E<sub>π</sub>[R<sub>t+1</sub> + γq<sub>π</sub>(S<sub>t+1</sub>,A<sub>t+1</sub>) | S<sub>t</sub>=s, A<sub>t</sub>=a]

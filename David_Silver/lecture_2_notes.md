@@ -60,3 +60,31 @@ The value function v(s) gives the long term value of state s
 > = E[R<sub>t+1</sub> + γG<sub>t+1</sub> | S<sub>t</sub>=s] \
 > = E[R<sub>t+1</sub> + γv(S<sub>t+1</sub>) | S<sub>t</sub>=s]
 
+v(s) = R<sub>s</sub>+ γ∑<sub>s'∈S</sub>P<sub>ss'</sub>v(s')
+
+The Bellman equation can be expressed concisely using matrices: v=R+γRv
+
+> [v(1)      [R<sub>1</sub>       [P<sub>11</sub> ... P<sub>1n</sub>  [v(1)  \
+> ...... =...... + γ     ......       ......     ......   \
+> v(n)]       R<sub>n</sub>]       P<sub>n1</sub> ... P<sub>nn</sub>]  v(n)] 
+
+The Bellman equation is a linear equation, can be solved directly:
+- v = R + γPv 
+- (1-γP)v = R 
+- v = (1-γP)<sup>-1</sup>R
+
+- Computational complexity is O(n<sup>3</sup>) for n states
+- Direct solution only possible for small MRPs
+- Iterative methods for large MRPs: eg
+- - Dynamic programming
+- - Monte-Carlo evaluation
+- - Temporal Difference Learning
+
+### Markov Decision Processes
+A Markov decision process (MDP) is a Markov reward process with decisions. It is an environment in which all states are Markov.
+- Definition: A Markov Decision Process is a tuple <S,A,P,R,γ>
+- - S is a finite set of states
+- - A is a finite set of actions
+- - P is a state transition probability matrix: P<sub>ss'</sub> = P[S<sub>t+1</sub>=s' | S<sub>t</sub>=s, A<sub>t</sub>=a]
+- - R is a reward function: R<sub>s</sub> = E[R<sub>t+1</sub> | S<sub>t</sub> = s, A<sub>t</sub>=a]
+- - γ is a discount factor 

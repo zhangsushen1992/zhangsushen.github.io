@@ -37,5 +37,26 @@ A Markov reward process is a Markov chain with values.
 
 The return Gt is the total discounted reward from time step t.
 - G<sub>t</sub> = R<sub>t+1</sub> + γR<sub>t+2</sub> + ... = ∑<sub>k=0</sub><sup>∞</sup>γ<sup>k</sup>R<sub>t+k+1</sub>
+- The discount factor is the present value of future rewards
+- γ=1: extremely far-sighted, γ=0: short-sighted, only current reward
 
- 
+Why discount?
+- Mathematically conveneinet to discount rewards
+- Avoids infinite returns in cyclic Markov processes
+- Uncertainty about the future may not be fully represented
+- Financially, time value of money
+- Animal/human behaviour shows preference for immediate reward
+- Possible to use undiscounted Markov reward processes (γ=1) if all sequneces terminate
+
+**Value function**
+The value function v(s) gives the long term value of state s
+- Definition: The state value function v(s) of an MRP is the expected return starting from state s: v(s) = E[G<sub>t</sub> | S<sub>t</sub>=s]
+
+**Bellman Equation for MRPs**
+- The value function can be decomposed into two parts: immediate reward R<sub>t+1</sub> and discounted value of successor state γv(S<sub>t+1</sub>) 
+- v(s) = E[G<sub>t</sub> | S<sub>t</sub>=s]
+> = E[R<sub>t+1</sub> + γR<sub>t+2</sub> + γ<sup>2</sup>R<sub>t+3</sub> + ... | S<sub>t</sub>=s] \
+> = E[R<sub>t+1</sub> + γ(R<sub>t+2</sub> + γR<sub>t+3</sub> + ...) | S<sub>t</sub>=s] \
+> = E[R<sub>t+1</sub> + γG<sub>t+1</sub> | S<sub>t</sub>=s] \
+> = E[R<sub>t+1</sub> + γv(S<sub>t+1</sub>) | S<sub>t</sub>=s]
+

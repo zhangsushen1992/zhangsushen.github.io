@@ -53,7 +53,7 @@ Search strategies include random search, Bayesian optimisation, evolutionary met
 #### Reinforcement Learning
 To frame NAS as RL problem, the generation of neural architecture can be seen as agent's action, with the action space identical to search space. The agent's reward is based on an estimate of the performance of the trained architecutre on unseen data. Different RL approaches differ in agents's policy and optimisation. Zoph and Le [75] use RNN policy to sequentially sample a string that in turn encodes the neural architecture. Initial optimisation uses REINFORCE policy gradient algorithm, then uses Proximal Policy Optimisation (PPO). Baker et al [4] use Q-learning to train a policy which sequentially chooses a layer's type and corresponding hyperparameters. An alternative view is: as sequential decision processes in which the policy samples actions to generate the architecture sequentially, the environment's state contains a summary of the actions sampled so far, and the (undiscounted) reward is obtained after final action. Since no interaction with an environment occurs, we treat it as sequential generation of single action, i.e. multi-armed bandit problem.
 
-A related approach was by Cai et al [10], who frame NAS as a sequential decision process: the state is the current architecture, the reward is an estimate of the architecture's performance, and the action corresponds to an application of function-preserving mutations, dubbed netowrk morphisms [12,63], followed by a phase of training the network. In order to deal with variable-length network architectures, they use a bi-directional LSTM to encode architectures into a fixed-length representation. Based on this encoded representation, actor networks decide no the sampled action. The combination of these two components constitute the policy, which is trained end-to-end with the REINFORCE policy gradient algorithm. We note that this approach will not visit the same state (architecture) twice so that strong genearalisaton over the architecutre space is required from the policy.
+A related approach was by Cai et al [10], who frame NAS as a sequential decision process: the state is the current architecture, the reward is an estimate of the architecture's performance, and the action corresponds to an application of function-preserving mutations, dubbed netowrk morphisms [12, 63], followed by a phase of training the network. In order to deal with variable-length network architectures, they use a bi-directional LSTM to encode architectures into a fixed-length representation. Based on this encoded representation, actor networks decide no the sampled action. The combination of these two components constitute the policy, which is trained end-to-end with the REINFORCE policy gradient algorithm. We note that this approach will not visit the same state (architecture) twice so that strong genearalisaton over the architecutre space is required from the policy.
 
 #### Neuro-evolutionary approaches
 Miller et al [44] use genetice algorithms to propose architectures and use back-propagation to optimise weights. Many neuro-evolutionary approaches since then [2,55,56] use genetic algorithms to optimise both the neural architecutre and its weights; however, SGD-based weight optimisation outperforms evolutionary ones. (for RL tasks competitive results can be obtained [15,51,57]). More recent works use gradient-based methods to find weights and EA for optimising architecture [22, 38, 43, 49, 50, 59, 66]. The mutations are local opeartions, such as adding or removing a layer, altering the hyperparameters of a layer, adding skip connections, as well as altering training hyperparameters. After training, the fitness (eg performance on a validation set) is evaluated and they are added to the population.
@@ -93,3 +93,20 @@ Defining more general and flexible search spaces is a related direction. Transce
 Comparison of performance is difficult since architecture is not the single factor. For example, results on CIFAR-10 dataset differ in search space, computational budget, data augmentation, training procedures, regularization and other factors. The definition of common benchmarks is thus important. It would also be interesting to evaluation NAS as part of a full open-source AutoML system where hyperparameters and data augmentaiton pipeline are optimised along with NAS.
 
 While NAS has achieved impressive performance, it fails to provide insights to why specific architectures work well and why architectures derived in independent runs are similar. Identifying common motifs, understanding performance, and invesigating generalisation property are desirable.
+
+### Bibliography
+#### Reinforcement Learning
+75. Zoph, B., Vasudevan, V., Shlens, J., Le, Q.V.: Learning transferable architectures for scalable
+image recognition. In: Conference on Computer Vision and Pattern Recognition (2018)
+
+4. Baker, B., Gupta, O., Naik, N., Raskar, R.: Designing neural network architectures using
+reinforcement learning. In: International Conference on Learning Representations (2017a)
+
+10. Cai, H., Chen, T., Zhang, W., Yu, Y., Wang, J.: Efficient architecture search by network
+transformation. In: Association for the Advancement of Artificial Intelligence (2018a)
+
+12. Chen, T., Goodfellow, I.J., Shlens, J.: Net2net: Accelerating learning via knowledge transfer.
+In: International Conference on Learning Representations (2016)
+
+63. Wei, T., Wang, C., Chen, C.W.: Modularized morphing of neural networks. arXiv:1701.03281
+(2017)

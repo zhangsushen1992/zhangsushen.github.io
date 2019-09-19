@@ -21,7 +21,26 @@ The controller in NAS is auto-regressive, predicting hyperparameters one a time,
 Another related idea of learning to learn is meta-learning (Thrun & Pratt, 2012), a general framework of using information learned in one task to improve a future task. More closely related is the idea of using a neural network to learn the gradient descent updates for another network (Andrychowicz et al., 2016) and the idea of using RL to find updat policies for another network (Li & Malik, 2016).
 
 ### Methonds
+
+#### General Model Descriptions with a Controller RNN
 ![Image]('https://github.com/zhangsushen1992/zhangsushen.github.io/blob/master/Research/Architectural_search/RNN.png')
+An RNN is run to generate tokens such as number of filters, filter height, filter width, stride height, etc, for each layer in an RNN. The process of generating an architecture stops if the number of layers exceeds a certain value. This value follows a schedule where it is increased as training progresses. The structure built by RNN is tested on held-out validation set and the accuracy is used to optimise RNN parameters θ<sub>c</sub>. A policy gradient method is used to update θ<sub>c</sub> such that the controller RNN generates better architectures over time.
+
+#### Training with REINFORCE
+The list of tokens that the controller predicts can be viewed as a list of actions a<sub>1:T</sub> to design an architecture for child network. The test accuracy R is the reward signal. The expected reward is represented as:
+
+J(θ<sub>c</sub>) = E<sub>P(a<sub>1:T</sub>;θ<sub>c</sub>)</sub>[R]
+
+Since the reward signal R is non-differentiable, we need to use a policy gradient method to iteratiely update θ<sub>c</sub>. In this work, we use the REINFORCE rule from Williams (1992):
+
+∇<sub>θ<sub>c</sub></sub>J(θ<sub>c</sub>) = 
+
+#### Increase Architecture Complexity with Skip Connections and Other Layer Types
+Modern architectures contain skip connections or branching layers such as GoogleNet (Szegedy et al., 2015), Residual Net (He et al., 2016a). We introduce method to allow skip connetions or branching layers, to widen the search space. We use a set-selection type attention (Neelakan- tan et al., 2015) which was built upon the attention mechanism (Bahdanau et al., 2015; Vinyals et al., 2015). At layer N, we add an anchor point which has N-1 content-based sigmoids to indicate the previous layers that need to be connected. Each sigmoid is a function of the current hiddenstate of the controller and the previous hiddenstates of the previous N-1 anchor points:
+
+P(Layer j is an input to layer i) = sigmoid(v<sup>T</sup>tanh(W<sub>prev</sub> * h <sub>j</sub> + W<sub>curr</sub> * h<sub>i</sub>))
+
+where h<sub>j</sub> represents the hiddenstate of the controller at anchor point for the j-th layer, where j ranges from 0 to N-1. We then sample from these sigmoids to decide what previous layers to be used as inputs to the current layer. The matrices W and v are trainable parameters. As these connections are also defined by probability distributions, the REINFORCE method still applies without any significant modifications.
 ### Bibliography
 #### Hyperparameter optimisation
 James Bergstra, Remi Bardenet, Yoshua Bengio, and Bal ´ azs K ´ egl. Algorithms for hyper-parameter ´

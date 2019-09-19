@@ -23,7 +23,8 @@ Another related idea of learning to learn is meta-learning (Thrun & Pratt, 2012)
 ### Methonds
 
 #### General Model Descriptions with a Controller RNN
-![Image]('https://github.com/zhangsushen1992/zhangsushen.github.io/blob/master/Research/Architectural_search/RNN.png')
+![Image](https://github.com/zhangsushen1992/zhangsushen.github.io/blob/master/Research/Architectural_search/RNN.png)
+
 An RNN is run to generate tokens such as number of filters, filter height, filter width, stride height, etc, for each layer in an RNN. The process of generating an architecture stops if the number of layers exceeds a certain value. This value follows a schedule where it is increased as training progresses. The structure built by RNN is tested on held-out validation set and the accuracy is used to optimise RNN parameters θ<sub>c</sub>. A policy gradient method is used to update θ<sub>c</sub> such that the controller RNN generates better architectures over time.
 
 #### Training with REINFORCE

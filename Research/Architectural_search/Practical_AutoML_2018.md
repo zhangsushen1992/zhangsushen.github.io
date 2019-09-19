@@ -6,7 +6,7 @@ Link: https://ml.informatik.uni-freiburg.de/papers/18-AUTOML-AutoChallenge.pdf
 
 ### Abstract:
 
-The article demonstrates the winning entry to AutoML challenge 2018 wiht an algorithm dubbed PoSH Auto-sklearn, which combines an automatically pre-selected portfolio, ensemble building and Bayesian optimisation with successive halving. 
+The article demonstrates the winning entry to AutoML challenge 2018 wiht an algorithm dubbed PoSH Auto-sklearn, which combines an automatically pre-selected portfolio, ensemble building and Bayesian optimisation with _successive halving_. 
 
 ### Introduction
 The first AutoML challenge demonstrated that automated machine learning is efficient and can perform better than human experts  (Guyon et al., 2015, 2016). This is an winning entry to the second AutoML challenge (Guyon et al., 2018.)

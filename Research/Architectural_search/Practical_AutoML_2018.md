@@ -19,7 +19,7 @@ The second challenge is different in that:
 - datasets could be marked as being recorded sequentially
 
 ### Our apporach: PoSH Auto-sklearn
-Particularly in the light of the tighter time constraints, the new framework is developed. ![Image]()
+Particularly in the light of the tighter time constraints, the new framework is developed. ![Image](Research/Architectural_search/figures/auto_frame.png)
 
 **Successive Halving**
 A key issue we identified during the last AutoML challenge was that training expensive configurations on the complete training set, combined with a low time budget, does not scale well to large datasets. At the same time, we noticed that our (then manual) strategy already yielded good predictions for ensemble building. For our new submission, we therefore made use of the recent bandit strategy Successive Halving (SH, Jamieson and Talwalkar (2016)) and also adapted our configuration space to consider classifiers which can be leveraged by SH’s budget allocation. SH allows to specify a minimum and maximum budget for each configuration (eg in terms of number ob training iterations or dataset size); it starts with the minimum budget and iteratively increases the budget for the pipelines that perform best with the current budget. It is simple to implement.

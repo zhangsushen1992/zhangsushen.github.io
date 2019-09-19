@@ -38,7 +38,9 @@ We adopted dataset preprocessing (feature scaling, imputation of missing values,
 Ensemble selectionn (Caruana et al., 2004) added too many bad models to the final ensemble. A new regularisation technique similar to library pruning  (Caruana et al., 2006) was added. Specifically, we compare loss of candidate model to single best model and if the relative difference between losses was larger than 3%, we did not consider the model for the ensemble.
 
 **PoSH Auto-sklearn**
+The model runs one iteration of SH on the porfolio and then uses Bayesian optiimsation to obtain new configurations for SH. We started ensemble slection in a separate process and continuously updated our ensemble as new models were evaluated.
 
 ### Results and Analysis
 We managed to evaluate our dataset-agnostic portfolio and to evaluate at least one pipeline on the full budget (ie finish one iteration of successive halving). For three of the datasets we even finished a second iteration of successive halving and for two we also reached the necessary number of function evaluations to build a model for guiding the search. Overall, the results indicate that the portfolio provided a robust and diverse enough set of pipelines, so it was hard to find much better configurations in the remaining time. 
-Interestingly, even though we filtered ensemble members much more aggressively compared to our previous approaches
+
+Interestingly, even though we filtered ensemble members much more aggressively compared to our previous approaches (Feurer et al., 2015a), the number of candidate models were still large. This indicates many pipelines performed well on these datasets. The new regularisation technique was very important to prevent overfitting.

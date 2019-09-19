@@ -14,9 +14,14 @@ Hyperparameter optimisation is widely researched (Bergstra et al., 2011; Bergstr
 
 Neuro-evolution algorithms are more flexible for composing novel models (Wierstra et al. (2005); Floreano et al. (2008); Stanley et al. (2009)) but are less practical at large scale. They are search-based thus are slow and require many heuristics to work well.
 
-NAS has parallels to program synthesis and inductive programming, the idea of searching a program from examples 
+NAS has parallels to program synthesis and inductive programming, the idea of searching a program from examples (Summers, 1977; Biermann, 1978). Probabilistic program induction has been successfully used in machine learning such as solving simple Q&A (Liang et al., 2010; Neelakantan et al., 2015; Andreas et al., 2016), sorting numbers (Reed & de Freitas, 2015) and learning with very few examples (Lake et al., 2015).
 
+The controller in NAS is auto-regressive, predicting hyperparameters one a time, conditioned on previous predictions. The idea is borrowed from the decoder in end-to-end sequence to sequence learning. Unlike sequence to sequence learning, our method optimises a non-differentiable metric, which is the accuracy of the child network. It is similar to BLEU optimisation in Neural Machine Translation (Ran- zato et al., 2015; Shen et al., 2016). Unlike these approaches, our method learns directly from reward signal without supervised bootstrapping.
 
+Another related idea of learning to learn is meta-learning (Thrun & Pratt, 2012), a general framework of using information learned in one task to improve a future task. More closely related is the idea of using a neural network to learn the gradient descent updates for another network (Andrychowicz et al., 2016) and the idea of using RL to find updat policies for another network (Li & Malik, 2016).
+
+### Methonds
+![Image]('https://github.com/zhangsushen1992/zhangsushen.github.io/blob/master/Research/Architectural_search/RNN.png')
 ### Bibliography
 #### Hyperparameter optimisation
 James Bergstra, Remi Bardenet, Yoshua Bengio, and Bal ´ azs K ´ egl. Algorithms for hyper-parameter ´

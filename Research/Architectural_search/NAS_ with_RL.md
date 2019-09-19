@@ -41,6 +41,19 @@ Modern architectures contain skip connections or branching layers such as Google
 P(Layer j is an input to layer i) = sigmoid(v<sup>T</sup>tanh(W<sub>prev</sub> * h <sub>j</sub> + W<sub>curr</sub> * h<sub>i</sub>))
 
 where h<sub>j</sub> represents the hiddenstate of the controller at anchor point for the j-th layer, where j ranges from 0 to N-1. We then sample from these sigmoids to decide what previous layers to be used as inputs to the current layer. The matrices W and v are trainable parameters. As these connections are also defined by probability distributions, the REINFORCE method still applies without any significant modifications.
+
+In the framework, if one layer has many input layers, then all input layers are concatenated in the depth dimension. Skip connections can cause "compilation failures" where one layer is not compatible with another layer, or one layer may not have any input or output. To circumvent these issues, we employ three techniques:
+- If a layer is not connected to any input layer, then the image is used as the input layer
+- At the final layer, we take all layer outputs that have not been connected and concatenate them before sending this final hiddenstate to classifier
+- If input layers to be concatenated have different sizes, we pad the small layers with zeros so that the concatenated layers have the same sizes.
+
+It is also possible to add the learning rate, pooling, local contrast normalisation, batchnorm. 
+
+#### Generate Recurrent Cell Architecutres
+We will modify the above method to generate recurrent cells. At every time step t, the controller needs to find a functional form for h<sub>t</sub> that takes x<sub>t</sub> and h<sub>t-1</sub> as inputs. The simplest way is to have h<sub>t</sub> = tanh(W<sub>1</sub> * x<sub>t</sub> + W<sub>2</sub> * h<sub>t-1</sub>), which is the basic recurrent cell. A more complicated formulation is LSTM (Hochreiter & Schmidhuber, 1997).
+
+The 
+
 ### Bibliography
 #### Hyperparameter optimisation
 James Bergstra, Remi Bardenet, Yoshua Bengio, and Bal ´ azs K ´ egl. Algorithms for hyper-parameter ´

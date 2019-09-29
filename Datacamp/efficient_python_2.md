@@ -35,3 +35,39 @@ Note that combinations outputs a combinations class instance. To unpack into lis
 The output is:
 ```
 [('Bug','Fire'),('Bug','Ghost'),('Bug','Grass')...]
+```
+### Checking for intersections through sets
+If we have two lists:
+```
+list_a = ['Bulbasaur', 'Charmander', 'Squirtle']
+list_b = ['Caterpie', 'Pidgey', 'Squirtle']
+```
+And we would like to find the repeating terms in the list. We use sets.
+```
+set_a = set(list_a)
+set_b = set(list_b)
+set_a.intersection(set_b)
+```
+Or if we would like to find the terms in A but not in B:
+```
+set_a.difference(set_b)
+```
+If we would like to find items in only one set but not both, we use:
+```
+set_a.symmetric_difference(set_b)
+```
+To combine the items in both sets, we use:
+```
+set_a.uion(set_b)
+```
+Membership testing in set is faster than in list or tuple:
+```
+%timeit 'Zuba' in names_list
+%timeit 'Zuba' in names_tuple
+%timeit 'Zuba' in names_set
+```
+Using a set can select the uniques:
+```
+set(types_list)
+```
+This returns a set with only unique values in the list.

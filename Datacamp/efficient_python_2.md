@@ -95,3 +95,35 @@ We can also make use of Numpy. If we want to find the average, instead of loopin
 ```
 avgs_np = poke_stats.mean(axis=1)
 ```
+Suppose we have list poke_names as the names of the pokemons and list poke_gens as the generations of the pokemons. We would like to select the names that belongs to generation 1 or 2. We can do one-line.
+```
+gen1_gen2_pokemon = [name for name, gen in zip(poke_names, poke_gens) if gen<3]
+```
+
+### Writing efficient loops
+If we have three list that we would like to zip together into list of lists.
+```
+names =['Pikachu', 'Squirtle', 'Articuno', ...]
+legend_status = [False, False, True, ...]
+generations = [1, 1, 1, ...]
+```
+One inefficient way of dealing with this is:
+```
+poke_data = []
+for poke_tuple in zip (names, legend_status, generations):
+  poke_list = list(poke_tuple)
+  poke_data.append(poke_list)
+print(poke_data)
+```
+A more efficient way to do this is to perform the conversion to list outside the lopp using map function:
+```
+poke_data_tuples =[]
+for poke_tuple in zip (names, legend_status, generations):
+  poke_data_tuples.append(poke_tuple)
+poke_data = [*map(list, poke_data_tuples)]
+print(poke_data)
+```
+To add components to tuple, we can have:
+```
+indexed_tuple = (i,) + pair
+```

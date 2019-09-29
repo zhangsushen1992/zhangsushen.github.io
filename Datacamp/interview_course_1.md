@@ -74,21 +74,37 @@ D['name'].value_counts()
 ### Regular Expressions
 Mapping Rules:
 a -> a
+
 A -> A
+
 1 -> 1
+
 . -> any character
+
 \. -> .
+
 \w -> any alphanumeric character or underscore '1', 'a', '_', ...
+
 \d -> any digit '1', '2', '3', ...
+
 \s -> any whitespace character ' ', '\t', ...
+
 [aAbB] -> a, A, b, B
+
 [a-z] -> a, b, c, ...
+
 [A-Z] -> A, B, C, ...
+
 [0-9] -> 0, 1, 2, ...
+
 [A-Za-z] -> A, B, C, ..., a, b, c, ...
+
 a* -> no or repeated undefined times ' ', 'a', 'aa', ...
+
 a+ -> at least once 'a', 'aa', 'aaa', ...
+
 a? -> exists or not ' ', 'a'
+
 {n, m} character present from n to m times a{2,4} -> 'aa', 'aaa', 'aaaa'
 
 Emails, for example, can be written as:
@@ -100,12 +116,15 @@ Use re package:
 ```
 import re
 pattern = re.compile(r'[\w\.]+@[a-z]+\.[a-z]+')
+
 text = 'john.smith@mailbox.com is the email of '\
 'John. He often writes to his boss at '\
 'boss@company.com. But the message get forwarded '\
 'to his secretary at info@company.com.'
+
 result = re.finditer(pattern, text)
 print(result) # <callable_iterator object at 0x7f5dff81af98>
+
 for match in result:
   print match
 ```

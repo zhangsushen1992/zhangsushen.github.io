@@ -36,7 +36,7 @@ The output is:
 ```
 [('Bug','Fire'),('Bug','Ghost'),('Bug','Grass')...]
 ```
-### Checking for intersections through sets
+### Making use of sets
 If we have two lists:
 ```
 list_a = ['Bulbasaur', 'Charmander', 'Squirtle']
@@ -71,3 +71,27 @@ Using a set can select the uniques:
 set(types_list)
 ```
 This returns a set with only unique values in the list.
+
+### Eliminatig loops
+Suppose we have a matrix of dimension 4x4 and we would like to sum up each row.
+Method 1:
+```
+%%timeit
+totals = []
+for row in poke_stats:
+  totals.append(sum(row))
+```
+Method 2:
+```
+%timeit totals_comp = [sum(row) for row in poke_stats]
+```
+Method 3: 
+```
+%timeit totals_map = [*map (sum, poke_stats)]
+```
+The runtime is Method 1 > Method 2 > Method 3. The last method is the most efficient.
+
+We can also make use of Numpy. If we want to find the average, instead of looping:
+```
+avgs_np = poke_stats.mean(axis=1)
+```

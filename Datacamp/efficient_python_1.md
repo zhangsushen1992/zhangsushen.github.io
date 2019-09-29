@@ -67,3 +67,4 @@ After installation, we run the code:
 %load_ext memory_profiler
 %mprun -f convert_units convert_units(heroes, hts, wts)
 ```
+If the function is saved in a Python file, use ```import FUNCTION from FILE```.

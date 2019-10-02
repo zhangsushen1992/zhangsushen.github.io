@@ -42,13 +42,13 @@ Corr(A,B) = 1/n Σ<sub>i=1</sub><sup>n</sup>((a<sub>i</sub>-b)/σ<sub>a</sub>)((
 
 With Fast Fourier Transform (FFT), it is defined as:
 
-Corr(A,B) = F<sub>−1</sub>[F(A) ◦ F∗(B)] 
+Corr(A,B) = F<sup>−1</sup>[F(A) ◦ F∗(B)] 
 
 
 #### Objective Function
 Since error rate on different validation set varies, the model design cannot be generalised. We present a new objective function that exploits information from the error rate (Err) combined with correlation results, written as:
 
-f(λ) = η(1 − CorrRes) + (1 − η) Err
+f(λ) = η(1 − Corr<sub>Res</sub>) + (1 − η) Err
 
 where η is a coefficient measuring the importance of Err and CorrRes. NMM is used to optimise the objective.
 

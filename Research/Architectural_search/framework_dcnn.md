@@ -37,19 +37,19 @@ Layer activation shows the activations of the feature maps [62] as a bitmap. Act
 
 #### Correlation coefficient
 The correlation coefficient [64] measures the similarity between two iamges or independent variables, maximal when images are high similar. The correlation between input image and the reconstructed image is recorded as Corr. Corr for different images are accumulated to be CorrRes. This is defined by:
-```
+
 Corr(A,B) = 1/n Σ<sub>i=1</sub><sup>n</sup>((a<sub>i</sub>-b)/σ<sub>a</sub>)((a<sub>i</sub>-b)/σ<sub>b</sub>)
-```
+
 With Fast Fourier Transform (FFT), it is defined as:
-```
+
 Corr(A,B) = F<sub>−1</sub>[F(A) ◦ F∗(B)] 
-```
+
 
 #### Objective Function
 Since error rate on different validation set varies, the model design cannot be generalised. We present a new objective function that exploits information from the error rate (Err) combined with correlation results, written as:
-```
+
 f(λ) = η(1 − CorrRes) + (1 − η) Err
-```
+
 where η is a coefficient measuring the importance of Err and CorrRes. NMM is used to optimise the objective.
 
 #### Nelder Mead Method

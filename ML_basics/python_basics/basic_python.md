@@ -85,11 +85,17 @@ c is a 6x6 matrix.
 
 ### Slicing of 2-d matrix
 If a is a matrix:
+
 [[0 1 2 3 4 5]
+
 [10 11 12 13 14 15]
+
 [20 21 22 23 24 25]
+
 [30 31 32 33 34 35]
+
 [40 41 42 43 44 45]
+
 [50 51 52 53 54 55]]
 ```
 print(a[[0,1,2],[2,3,4]]) # Outputs [2 13 24]
@@ -100,3 +106,81 @@ print(a[i])               # Outputs [[0 1 2 3 4 5][20 21 22 23 24 25][50 51 52 5
 print(a[i,3])             # Outputs [3 23 53]
 ```
 
+### unique()
+```
+b = np.unique(a) # display unique values in a
+```
+If a is a 2-dimensional np array, unique() will outputs a list of unique values in all elements of the 2-d array.
+To remove repeating rows in 2-d array:
+```
+np.array(list(set([tuple(t) for t in c]))
+```
+
+### stack() and axis
+If we have a, b, c, d of np.array in dimension (2,3):
+```
+s = np.stack((a,b,c,d), axis=0) # Outputs dimension (4,2,3)
+s = np.stack((a,b,c,d), axis=1) # Outputs dimension (2,4,3)
+s = np.stack((a,b,c,d), axis=2) # Outputs dimension (2,3,4)
+```
+
+### Plotting normal distribution
+```
+import matplotlib as mpl
+mpl.rcParams['font.sans-serif'] = [u'SimHei']
+mpl.rcParams['axes.unicode_minus'] = False
+
+mu = 0
+sigma = 1
+x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 51)
+y = np.exp(-(x - mu) ** 2 / (2 * sigma ** 2)) / (math.sqrt(2 * math.pi) * sigma)
+
+plt.figure(facecolor='w')
+plt.plot(x, y, 'r-', x, y, 'gv', linewidth=2, markersize=8, mec='b') # mec is markeredgecolor
+
+plt.xlabel('X', fontsize=15)
+plt.ylabel('Y', fontsize=15)
+plt.title(u'Normal Distribution', fontsize=18)
+plt.grid(True)
+plt.show()
+```
+
+### Plotting Loss Function
+```
+plt.figure(figsize=(10,8), facecolor='w')
+x = np.linspace(start=-2, stop=3, num=1001, dtype=np.float)
+y_logit = np.log(1 + np.exp(-x)) / math.log(2)
+y_boost = np.exp(-x)
+y_01 = x < 0  # Step function
+y_hinge = 1.0 - x
+y_hinge[y_hinge < 0] = 0
+
+plt.plot(x, y_logit, 'r-', label='Logistic Loss', linewidth=2)
+plt.plot(x, y_01, 'g-', label='0/1 Loss', linewidth=2)
+plt.plot(x, y_hinge, 'b-', label='Hinge Loss', linewidth=2)
+plt.plot(x, y_boost, 'm--', label='Adaboost Loss', linewidth=2)
+
+plt.grid()
+plt.legend(loc='upper right')
+plt.savefig('1.png')
+plt.show()
+```
+
+### Plotting x^x
+```
+def f(x):
+  y = np.ones_like(x)
+  i = x > 0
+  y[i] = np.power(x[i], x[i])
+  i = x < 0
+  y[i] = np.power(-x[i], -x[i])
+  return y
+
+plt.figure(facecolor='w')
+x = np.linspace(-1.3, 1.3, 101)
+y = f(x)
+plt.plot(x, y, 'g-', label='x^x', linewidth=2)
+plt.grid()
+plt.legend(loc='upper left')
+plt.show()
+```

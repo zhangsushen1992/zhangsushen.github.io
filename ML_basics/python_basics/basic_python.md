@@ -184,3 +184,46 @@ plt.grid()
 plt.legend(loc='upper left')
 plt.show()
 ```
+
+### Plotting Breastline
+```
+x = np.arange(1, 0, -0.001)
+y = (-3 * x * np.log(x) + np.exp(-(40 * (x - 1 / np.e)) ** 4) / 25) / 2
+plt.figure(figsize=(5,7), facecolor='w')
+plt.plot(y, x, 'r-', linewidth=2)
+plt.grid(True)
+plt.title(u'Breastline', fontsize=20)
+plt.savefig('breast.png')
+plt.show()
+```
+
+### Plotting Heartline
+```
+t = np.linspace(0, 2*np.pi, 100)
+x = 16 * np.sin(t) ** 3
+y = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)
+plt.plot(x, y, 'r-', linewidth=2)
+plt.grid(True)
+plt.show()
+```
+
+### Plotting Spiral
+```
+t = np.linspace(0, 50, num=1000)
+x = t * np.sin(t) + np.cos(t)
+plt.plot(x, y, 'r-', linewidth=2)
+plt.grid()
+plt.show()
+```
+
+### Plotting sin() with Bar
+```
+x = np.arange(0, 10, 0.1)
+y = np.sin(x)
+plt.bar(x, y, width=0.04, linewidth=0.2)
+plt.plot(x, y, 'r--', linewidth=2)
+plt.title(u'Sin curve')
+plt.xticks(rotation=-60)
+plt.grid()
+plt.show()
+```

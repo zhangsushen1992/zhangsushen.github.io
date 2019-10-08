@@ -40,3 +40,24 @@ print(europe.keys())
 print('italy' in europe)
 ```
 Note: Keys to a dict must be immutable (list is not okay).
+
+### Pandas Dataframe
+```
+# convert the first column to be row labels
+cars = pd.read_csv('cars.csv',index_col=0) 
+```
+The difference between loc and iloc, [] and [[]] indexing:
+```
+# loc finds index by label, iloc by integer-based index
+df.loc['RU']
+df.iloc[1:4]
+df.iloc[:,[0,1]]
+
+# [] returns a Series object, [[]] returns a Dataframe
+df.loc['RU'] # Series
+df.loc[['RU']] #DataFrame
+
+# returns row and column combination, can use colon
+df.loc[['RU','IN','CH'],['country','capital']]
+df.loc[:,['country','capital']]
+```

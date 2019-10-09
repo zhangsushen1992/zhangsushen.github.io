@@ -109,3 +109,59 @@ To upload html file to S3:
 ```
 s3.upload_file(Filename='./table_agg.html', Bucket='datacamp-website', Key='table.html', ExtraArgs={'ContentType':'text/html', 'ACL':'public-read'})
 ```
+To upload image file to S3:
+```
+s3.upload_file(Filename='./plot_image.png', Bucket='datacamp-website', Key='plot_image.png', ExtraArgs={'ContentType':'image/png', 'ACL':'public-read'})
+```
+IANA Media Types decide file type based on extension. Common types include json, png, pdf, csv.
+To generate an index page:
+```
+r = s3.list_objects(Bucket='gid-reports', Prefix='2019/')
+objects_df = pd.DataFrame(r['Contents'])
+
+# create a column 'link' that contains website url+key
+base_url = "http://datacamp-website.s3.amazonaws.com/"
+objects_df['Link'] = base_url + objects_df['Key']
+
+# write dataframe to html
+objects_df.to_html('report_listing.html', columns=['Link', 'LastModified', 'Size'], render_links=True)
+
+# upload html to S3
+s3.upload_file(Filename='./report_listing.html', Bucket='datacamp-website', Key='index.html', ExtraArgs={'ContentType: 'text/html', 'ACL':'public-read'})
+```
+
+### Case Study
+Read raw data files:
+```
+df_list = []
+response = s3.list_objects(Bucket='gid-requests', Prefix='2019_jan')
+requests_files = response['Contents']
+
+for file in requests_files:
+  obj = s3.get_object(Bucket='gid-requests', Key=file['Key'])
+  obj_df = pd.read_csv(obj['Body'])
+  df_list.append(obj_df)
+  
+df = pd.concat(df_list)
+df.head()
+
+df.to_csv('jan_final_report.csv')
+df.to_html('jan_final_report.html')
+```
+To upload aggreagated csv, html, and chart:
+```
+s3.upload_file(Filename='./jan_final_report.csv', Key='2019/jan/final_report.csv', Bucket='dig-reports', ExtraArgs={'ACL':'public-read'})
+s3.upload_file(Filename='./jan_final_report.html', Key='2019/jan/final_report.html', Bucket='dig-reports', ExtraArgs={'ContentType':'text/html', 'ACL':'public-read'})
+s3.upload_file(Filename='./jan_final_chart.html', Key='2019/jan/final_chart.html', Bucket='dig-reports', ExtraArgs={'ContentType':'text/html','ACL':'public-read'})
+```
+To create index.html:
+```
+r = s3.list_objects(Bucket='gid-reports', Prefix='2019/')
+objects_df = pd.DataFrame(r['Contents'])
+base_url = "https://gid-reports.s3.amazonaws.com/"
+objects_df['Link'] = base_url + objects_df['Key']
+
+objects_df.to_html('report_listing.html', columns=['Link','LastModified','Size'], render_links=True)
+
+s3.upload_file(Filename='./report_listing.html', Key='index.html', Bucket='gid-reports', ExtraArgs={'ContentType':'text/html', 'ACL':'public-read'})
+```

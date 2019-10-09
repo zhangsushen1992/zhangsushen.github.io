@@ -93,3 +93,19 @@ for file in request_files:
 df = pd.concat(df_list)
 df.head()
 ```
+
+Pandas can write data to html:
+```
+df.to_html('table_agg.html')
+# To make any url clickable:
+df.to_html('table_agg.html',render_links=True)
+```
+To convert certain columns:
+```
+# border=0 remove border, border=1 show border
+df.to_html('table_agg.html',render_links=True, columns['service_name','request_count','info_link'],border=0)
+```
+To upload html file to S3:
+```
+s3.upload_file(Filename='./table_agg.html', Bucket='datacamp-website', Key='table.html', ExtraArgs={'ContentType':'text/html', 'ACL':'public-read'})
+```

@@ -171,7 +171,7 @@ best_idx = np.argmax(test_scores)
 print(test_scores[best_idx])
 print(ParameterGrid(grid)[best_idx])
 ```
-
+### Feature engineering
 To extract feature importance:
 ```
 from sklearn.ensemble import RandomForestRegressor
@@ -179,7 +179,24 @@ from sklearn.ensemble import RandomForestRegressor
 random_forest = RandomForestRegressor()
 random_forest.fit(train_features, train_targets)
 
-feature_importances = random_forest.feature_importances_
+importances = random_forest.feature_importances_
 
-print(feature_importances)
+print(importances)
+```
+To sort features based on importance and plot:
+```
+sorted_index = np.argsort(importances)[::-1] # reverse list to descending order
+x = range(len(importances))
+labels = np.array(feature_names)[sorted_index]
+plt.bar(x, importances[sorted_index],tick_label=labels)
+plt.xticks(rotation=90)
+plt.show()
+```
+
+### Gradient Boost
+```
+from sklearn.ensemble import GradientBoostingRegressor
+gbr = GradientBoostingRegressor(max_features=4, learning_rate=0.01, n_estimators=200, subsample=0.6, random_state=42)
+gbr.fit(train_features, train_features)
+print(gbr.score(train_features, train_targets))
 ```

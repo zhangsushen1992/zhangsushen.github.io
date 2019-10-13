@@ -77,3 +77,109 @@ plt.ylabel('actual')
 plt.legend()  # show the legend
 plt.show()
 ```
+
+### Engineering Features
+To add nonlinear terms:
+```
+SMAxRSI = amd_df['14-day SMA'] * amd_df['14-day RSI']
+```
+To add volume features:
+```
+amd_df['Adj_Volume_1d_change'] = amd_df['Adj_Volume'].pct_change()
+one_day_change = amd_df['Adj_Volume_1d_change'].values
+amd_df['Adj_Volume_1d_change_SMA'] = talib.SMA(one_day_change, timeperiod=10)
+```
+To engineer features using day of the week:
+```
+print(amd_df.index.dayofweek)
+```
+The above generates week days as ordinal numbers. To use one-hot representations:
+```
+days_of_week = pd.get_dummies(amd_df.index.dayofweek, prefix='weekday', drop_first=True)
+
+# Set the index as the original dataframe index for merging
+days_of_week.index = lng_df.index
+
+# Join the dataframe with the days of week dataframe
+lng_df = pd.concat([lng_df, days_of_week], axis=1)
+```
+drop_first function removes one column in the dummy variable as we can infer the day of week from the other columns.
+
+### Decision Tree
+To build a decison tree:
+```
+from sklearn.tree import DecisionTreeRegressor
+decision_tree = DecisionTreeRegressor(max_depth=5)
+decision_tree.fit(train_features, train_targets)
+```
+To evaluate model, the following outputs R-squared values:
+```
+print(decision_tree.score(train_features, train_targets))
+print(decision_tree.score(test_features, test_targets))
+```
+To check performance:
+```
+train_preidictions = decision_tree.predict(train_features)
+test_predictions = decision_tree.predict(test_features)
+plt.scatter(train_predictions, train_targets, label='train')
+plt.scatter(test_predictions, test_targets, label='test')
+plt.legend()
+plt.show()
+```
+To try different depth with for loop:
+```
+# Loop through a few different max depths and check the performance
+for d in [3,5,10]:
+    # Create the tree and fit it
+    decision_tree = DecisionTreeRegressor(max_depth=d)
+    decision_tree.fit(train_features, train_targets)
+
+    # Print out the scores on train and test
+    print('max_depth=', str(d))
+    print(decision_tree.score(train_features,train_targets))
+    print(decision_tree.score(test_features, test_targets), '\n')
+```
+
+### Random Forest
+```
+from sklearn.ensemble import RandomForestRegressor
+random_forest = RandomForestRegressor()
+random_forest.fit(train_features, train_targets)
+print(random_forest.score(train_features, train_targets))
+```
+To set hyperparameters:
+```
+random_forest = RandomForestRegressor(n_estimators=200, max_depth=5, max_features=4, random_state=42)
+```
+To set parameter grid search:
+```
+from sklearn.model_selection import ParameterGrid
+grid = {'n_estimators':[200], 'max_depth':[3,5], 'max_features':[4,8]}
+from pprint import pprint
+ppprint(list(ParameterGrid(grid)))
+```
+```
+test_scores = []
+
+# loop through the parameter grid, set hyperparameters, save the scores
+for g in ParameterGrid(grid):
+    rfr.set_params(**g)  # ** is "unpacking" the dictionary
+    rfr.fit(train_features, train_targets)
+    test_scores.append(rfr.score(test_features, test_targets))
+# find best hyperparameters from the test score and print
+best_idx = np.argmax(test_scores)
+print(test_scores[best_idx])
+print(ParameterGrid(grid)[best_idx])
+```
+
+To extract feature importance:
+```
+from sklearn.ensemble import RandomForestRegressor
+
+random_forest = RandomForestRegressor()
+random_forest.fit(train_features, train_targets)
+
+feature_importances = random_forest.feature_importances_
+
+print(feature_importances)
+```

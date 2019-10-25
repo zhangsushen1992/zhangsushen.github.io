@@ -23,6 +23,8 @@ def restore1(sigma, u, v, K):
         a += sigma[k] * np.dot(uk, vk)
     a[a<0] = 0
     a[a>255] = 255
+    # Alternatively we can use:
+    # a = a.clip(0, 255)
     return np.rint(a).astype('uint8')
 ```
 

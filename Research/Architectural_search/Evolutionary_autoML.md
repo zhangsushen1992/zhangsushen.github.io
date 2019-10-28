@@ -60,3 +60,7 @@ Black-box optimisation algorithms that can optimise arbitrary structure. Approac
 
 The main advantage of EA over RL is that they can optimise over much larger search spaces. For instance, approaches based on NEAT can evolve arbitrary graph topologies. Hierarchical evolutionary methods can search over very large spaces efficiently and evolve complex architecutres quickly from a minimal starting point. Thus, performnace of EA match or exceeds RL. Current state-of-the-art results on CIFAR-10 and ImageNet were achieved by EA [42]. In this paper, LEAF uses CoDeepNEAT, a powerful EA based on NEAT that is capable of hierarchically evolving networks with arbitrary topology.
 
+### LEAF overview
+LEAF composes of three components: algorithm layer, system layer, problem-domain layer.The algorithm layer allows the LEAF to evolve DNN hyperparameters and architectures. The system layer parallelizes training of DNNs on cloud compute infrastructure such as Amazon AWS [2], Microsoft Azure [6], or Google Cloud [3], which is required to evaluate the fitnesses of the networks evolved in the algorithm layer. The algorithm layer sends the network architectures in Keras JSON format [14] to the system layer and receives fitness information back. These two layers work in tandem to support the problem-domain layer, where LEAF solves problems such as hyperparameter tuning, architecture search, and complexity minimization.
+
+#### Algorithm Layer

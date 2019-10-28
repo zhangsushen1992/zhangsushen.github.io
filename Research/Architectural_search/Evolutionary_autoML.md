@@ -32,4 +32,31 @@ The effectiveness of LEAF will be demonstrated on two domains:
 - in language: Wikipedia comment toxicity classification (aka Wikidetox)
 - in vision: Chest X-rays multitaks image classification
 
+### Background and related work
+#### Hyperparameter Tuning
+- Random/Grid search and BO
+
+Random search and grid search can optimise simple DNNs but are ineffective when all hyperparameters are crucial to performance. For such cases, Bayesian optimization using Gaussin processes [44] is a feasible alternative. It requires few function evaluations and works well on multimodal, non-separable and noisy functions where there are several local optima. However, it is computationally expensive and scales cubically with number of evaluated points. DNGO [45] addresses this problem by replacing Gaussian processes with linearly scaling Bayesian neural networks. Another downside of BO is the poor performance when number of hyperparameters is moderately high, 10-15 [32].
+
+- EA
+
+One particular model is CMA-ES [32]. A Gaussian distribtuion for the best individuals in the population is estimated and used to generate/sample the population for the next genearation. Furthermore, it has mechanisms for controlling the step-size and the direction that the population will move. It performs well in real-world high-dimensional optimisation problems and outperforms BO in tuning CNN. However, it is limited to continuous optimisation and does not extend naturally to architecture search.
+
+#### Architecture search for DNNs
+- RL
+
+A recurrent neural network (LSTM) controller generates a sequence of layers that begin from the input and end at the output of a DNN [55]. The LSTM is trained through a gradient-based policy search algorithm called REINFORCE [51]. The architecture search space explored by this approach is stufficiently large to improve upon hand-design. On CIFAR-10 and ImageNet, it achieved 1-2 percentage points of the state-of-the-art, and on language modeling benchmark, it achieved state-of-the-art performance [55].
+
+However, 
+1) the architecture of the optimised network still must have either a linear or tree-like core structure; arbitrary graph topologies are outside the search space. Thus, it is still up to the user to define an appropriate search space beforehand as starting piont.
+2) the number of hyperparameters that can be optimised for each layer are limited
+3) computations extremely heavy; thousands of candidate architectures have to be evaluated and trained, requiring hundreds of thousands of GPU hours
+
+- EA 
+
+Black-box optimisation algorithms that can optimise arbitrary structure. Approaches use a modified version of NEAT [43], an EA for neuron-level neuroevolution [46], for searching network topologies. Others rely on genetic programming [47] or hierarchical evolution [31]. There is some very recent work on multiobjective evolutionary architecture search [18, 33], where the goal is to optimise both the performance and training time/complexity of the network.
+
+- EA vs RL
+
+The main advantage of EA over RL is that they can optimise over much larger search spaces. For instance, approaches based on NEAT can evolve arbitrary graph topologies. Hierarchical evolutionary methods can search over very large spaces efficiently and evolve complex architecutres quickly from a minimal starting point. Thus, performnace of EA match or exceeds RL. Current state-of-the-art results on CIFAR-10 and ImageNet were achieved by EA [42]. In this paper, LEAF uses CoDeepNEAT, a powerful EA based on NEAT that is capable of hierarchically evolving networks with arbitrary topology.
 

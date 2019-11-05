@@ -118,3 +118,10 @@ SELECT sex, count(*)
 FROM employees
 GROUP BY sex;
 ```
+In SQL, aggregate functions can't be used in WHERE clauses. That's where the HAVING clause comes in.
+```
+SELECT release_year
+FROM films
+GROUP BY release_year
+HAVING COUNT(title) > 10;
+```

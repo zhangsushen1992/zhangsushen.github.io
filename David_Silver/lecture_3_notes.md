@@ -36,3 +36,13 @@
 v<sub>k+1</sub>(s) = Σ<sub>a∈A</sub>π(a|s)(R<sup>a</sup><sub>s</sub> + γΣ<sub>s'∈S</sub>P<sub>ss'</sub><sup>a</sup> v<sub>k</sub>(s'))
 
 v<sup>k+1</sup> =R<sup>π</sup> + γP<sup>π</sup>v<sup>k</sup>
+
+### Policy Iteration
+- Given a policy π, evaluate the policy with: v<sub>π</sub>(s) = E[R<sub>t+1</sub>+γR<sub>t+2</sub>+...|S<sub>t</sub>=s]
+- Improve the policy by acting greedily with respect to v<sub>π</sub>: π' = greedy(v<sub>π</sub>)
+- Need many iterations of improvement/evaluation to converge to π*
+
+### Value Iteration
+v*(s) <- max<sub>a∈A</sub> R<sub>s</sub><sup>a</sup>+γΣ<sub>s'∈S</sub>P<sub>ss'</sub><sup>a</sup> v<sub>*</sub>(s'))
+- Apply these updates iteratively. Intuition: start with final rewards and work backwards
+- Unlike policy iteration, there is no explicit policy. Intermediate value functions may not correspond to any policy.

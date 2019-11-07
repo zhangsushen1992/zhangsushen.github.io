@@ -43,6 +43,6 @@ v<sup>k+1</sup> =R<sup>π</sup> + γP<sup>π</sup>v<sup>k</sup>
 - Need many iterations of improvement/evaluation to converge to π*
 
 ### Value Iteration
-v*(s) <- max<sub>a∈A</sub> R<sub>s</sub><sup>a</sup>+γΣ<sub>s'∈S</sub>P<sub>ss'</sub><sup>a</sup> v<sub>*</sub>(s'))
+v*(s) <- max<sub>a∈A</sub> R<sub>s</sub><sup>a</sup>+γΣ<sub>s'∈S</sub>P<sub>ss'</sub><sup>a</sup> v<sub>*</sub>(s')
 - Apply these updates iteratively. Intuition: start with final rewards and work backwards
 - Unlike policy iteration, there is no explicit policy. Intermediate value functions may not correspond to any policy.

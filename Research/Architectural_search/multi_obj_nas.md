@@ -29,3 +29,25 @@ Peter and Schaal 2006 treat hyperparameter decisions as a series of actions in t
 θ<sub>i+1</sub> = θ<sub>i</sub> + η∇R<sub>θi</sub>
 
 where η is the learning rate. We approximate ∇R<sub>θ</sub> with method of (Zoph and Le, 2017a):
+
+∇R<sub>θ</sub> =Σ<sub>τ</sub>∇P(τ|θ)R(τ)≈1/NΣ<sup>N</sup><sub>n=1</sub>Σ<sup>T</sup><sub>t=1</sub>∇logP(a<sup>n</sup><sub>t</sub>|a<sup>n</sup><sub>t−1:1</sub>, θ)R(τ<sup>n</sup>)
+
+#### Algorithm
+```
+Input: Search Space, Reward function(R), niterations, nepochs
+Output: current best target network(TN*)
+1. Rewardmax <- 0
+2. Initialise the robot network RN
+3. for i<-1 to niterations do:
+      TNi <- RN.generateTN(Search Space)
+      Train TNi for nepochs
+      Rewardi <- R(TNi)
+      Update RN with Rewardi with the policy gradient method
+      if Rewardi>Rewardmax then
+        Rewardmax<-Rewardi
+        TN* <- TNi
+4. Return TN*
+```
+
+### Results and Discussion
+Make use of Pareto Frontier to set the limit of models evaluated.

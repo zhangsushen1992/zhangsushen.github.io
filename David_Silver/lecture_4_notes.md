@@ -106,3 +106,28 @@ n-step prediction
 - n-step TD learning:
 - - V(S<sub>t</sub>) <- V(S<sub>t</sub>) + α(G<sub>t</sub><sup>(n)</sup> - V(S<sub>t</sub>))
 
+- The λ-return G<sub>t</sub><sup>λ</sup> combines all n-step returns G<sub>t</sub><sup>(n)</sup>
+- Using weight (1-λ)λ<sup>n-1</sup>: G<sub>t</sub><sup>λ</sup>=(1-λ)Σ<sub>n=1</sub><sup>∞</sup>λ<sup>n-1</sup>G<sub>t</sub><sup>(n)</sup>
+- Forward-view, TD(λ): V(S<sub>t</sub>) <- V(S<sub>t</sub>) + α(G<sub>t</sub><sup>(n)</sup> - V(S<sub>t</sub>))
+
+Eligibility Traces:
+- Frequency heuristic: assign credit to most frequent states
+- Recency heuristic: assign credit to most recent states
+- Eligibility traces combine both heuristics: E0(s)=0, Et(s) = γλE<sub>t-1</sub>(s) + **1**(S<sub>t</sub>=s)
+
+Backward view TD(λ)
+- Keep eligibility trace for every state s
+- Update value V(s) for every state s
+- In proportion to TD-error ẟ<sub>t</sub> and eligibility trace E<sub>t</sub>(s):
+- ẟ<sub>t</sub> = R<sub>t+1</sub> + γV(S<sub>t+1</sub>)-V(S<sub>t</sub>)
+- V(s) <- V(s) + αẟ<sub>t</sub>E<sub>t</sub>(s) 
+
+When λ=0, only current state is updated: E<sub>t</sub>(s) = **1**(S<sub>t</sub>=s), V(S<sub>t</sub>) <- V(S<sub>t</sub>) + αẟ<sub>t</sub>E<sub>t</sub>(s) 
+
+For TD(0) update: V(S<sub>t</sub>) <- V(S<sub>t</sub>) + αẟ<sub>t</sub>
+
+TD(1) is same as MC. Credit deferred until end of episode.
+```
+Theorem: The sum of offline updates is identical for forward-view and backward-view of TD(λ).
+```
+Σ<sub>t=1</sub><sup>T</sup>αẟ<sub>t</sub>E<sub>t</sub>(s) = Σ<sub>t=1</sub><sup>T</sup>α(G<sub>t</sub><sup>λ</sup> - V(S<sub>t</sub>))**1**(S<sub>t</sub>=s)

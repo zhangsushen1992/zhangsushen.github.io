@@ -63,6 +63,46 @@ Bias/Variance Trade-off
 - True TD target R<sub>t+1</sub> + γv<sub>π</sub>(S<sub>t+1</sub>) is unbiased estimate of v<sub>π</sub>(S<sub>t</sub>)
 - TD target R<sub>t+1</sub> + γV(S<sub>t+1</sub>) is biased estimate of v<sub>π</sub>(S<sub>t</sub>)
 - TD target is much lower vairance than the return:
-- - Return depends on many random actions, transitions, rewards
-- - TD target depends on one random action, transition, reward
+- - Return depends on many random actions, transitions, rewards (noise in each variable)
+- - TD target depends on one random action, transition, reward (noise from one step)
+
+- MC has high veriance, zero bias
+- - Good convergence properties
+- - (even with function approximation)
+- - Not very sensitive to initial value
+- - Very simple to understand and use
+- TD has low variance, some bias
+- - Usually more efficient than MC
+- - TD(0) converges to v<sub>π</sub>(s)
+- - (but not always with function approximation)
+- - More sensitive to initial value (self-feeding)
+
+- TD exploits Markov property, more efficient in Markov environments
+- MC does note exploit Markov property, more effective in non-Markov environments
+
+Batch MC and TD:
+- MC and TD converge: V(s)->v<sub>π</sub>(s) as experience -> ∞
+- But what about batch solution for finite experience? e.g repeatedly sample episode k∈[1,K]
+- Apply MC or TD(0) to episode k
+
+Bootstrapping and Sampling:
+- Bootstrapping: update involves an estimate
+- - MC does not bootstrap, DP bootstraps, TD bootstraps
+- Sampling: update samples an expectation
+- - MC samples, DP does not sample, TD samples
+
+full backups      dynamic programming                 exhaustive search
+sample backups    temporal-difference learning        monte-carlo
+                   <---------------bootstrapping, λ--------------------->
+                shallow backups                                     deep backups
+       
 ### TD(λ)
+n-step prediction
+- let TD target look n steps into the future
+- infinite n is monte-carlo
+
+- Define the n-step return:
+- - G<sub>t</sub><sup>(n)</sup> = R<sub>t+1</sub> + γR<sub>t+2</sub> +...+γ<sup>n-1</sup>R<sub>t+n</sub> + γ<sup>n</sup>V(S<sub>t+n</sub>)
+- n-step TD learning:
+- - V(S<sub>t</sub>) <- V(S<sub>t</sub>) + α(G<sub>t</sub><sup>(n)</sup> - V(S<sub>t</sub>))
+

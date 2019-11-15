@@ -92,8 +92,11 @@ Bootstrapping and Sampling:
 - - MC samples, DP does not sample, TD samples
 
 full backups      dynamic programming                 exhaustive search
+
 sample backups    temporal-difference learning        monte-carlo
+
                    <---------------bootstrapping, λ--------------------->
+                   
                 shallow backups                                     deep backups
        
 ### TD(λ)

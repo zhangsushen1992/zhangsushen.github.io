@@ -29,9 +29,33 @@ GLIE Monte-Carlo Control:
 - for each state St and action At in the episode:
 - N(St, At) <- N(St,At) + 1
 - Q(St,At) <- Q(St,At) + 1/(N(St,At)) * (Gt-Q(St,At))
-- Improvement based on new action-value function:
+- Improve policy based on new action-value function:
 - ϵ <- 1/k
 - π <- ϵ-greedy(Q)
+
+Theorem: GLIE Monte-Carlo control converges to the optimal action-value function Q(s,a)->q*(s,a)
+
+TD has several advantages over MC:
+- Lower variance
+- Online
+- Incomplete sequences
+
+Insight: apply TD to Q(S,A), use ϵ-greedy policy improvement, update every time-step
+
 ### On-policy Temporal-difference Learning
+- Sarsa: S,A -> R -> S' -> A'
+- Q(S,A) <- Q(S,A) + α(R + γQ(S',A') - Q(S,A))
+
+Theorem:
+- Sarsa converges to the optimal action-value function, Q(s,a) -> q*(s,a), under the following conditions:
+- GLIE sequence of policies π<sub>t</sub>(a|s)
+- Robbins-Monro sequence of step-sizes α<sub>t</sub>
+- - Σ<sub>t=1</sub><sup>∞</sup>α<sub>t</sub>=∞
+- - Σ<sub>t=1</sub><sup>∞</sup>α<sub>t</sub><sup>2</sup><∞
+
+Define the n-step Q-return:
+- q<sub>t</sub><sup>(n)</sup> = R<sub>t+1</sub> + γR<sub>t+2</sub> + ... + γ<sup>n-1</sup>R<sub>t+n</sub> + γ<sup>n</sup>Q(S<sub>t+n</sub>)
+- n-step Sarsa updates Q(s,a) towards the n-step Q-return
+- Q(St,At) <- Q(St,At) + α(q<sub>t</sub><sup>(n)</sup> - Q(St,At))
 
 ### Off-policy Learning

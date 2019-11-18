@@ -58,4 +58,18 @@ Define the n-step Q-return:
 - n-step Sarsa updates Q(s,a) towards the n-step Q-return
 - Q(St,At) <- Q(St,At) + α(q<sub>t</sub><sup>(n)</sup> - Q(St,At))
 
+Forward view Sarsa(λ):
+- q<sub>t</sub><sup>λ</sup> = (1-λ) Σ<sub>n=1</sub><sup>∞</sup>λ<sup>n-1</sup>q<sub>t</sub><sup>(n)</sup>
+- Q(St,At) <- Q(St,At) + α(q<sub>t</sub><sup>λ</sup> - Q(St,At))
+
+Backward view Sarsa(λ):
+- Just like TD(λ), we use eligibility traces in an online algorithm
+- But Sarsa(λ) has one eligibility trace for each state-action pair
+- - E<sub>0</sub>(s,a) = 0
+- - E<sub>t</sub>(s,a) = γλE<sub>t-1</sub>(s,a) + **1**(St=s,At=a)
+- Q(s,a) is updated for every state s and action a
+- In proportion to TD-error ẟt and eligibility trace E<sub>t</sub>(s,a)
+- - ẟ<sub>t</sub> = R<sub>t+1</sub> + γQ(S<sub>t+1</sub>,A<sub>t+1</sub>) - Q(S<sub>t</sub>,A<sub>t</sub>)
+- - Q(s,a) <- Q(s,a) + αẟ<sub>t</sub>E<sub>t</sub>(s,a)
+
 ### Off-policy Learning

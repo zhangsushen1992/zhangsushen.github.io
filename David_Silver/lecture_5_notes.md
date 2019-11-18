@@ -73,3 +73,28 @@ Backward view Sarsa(λ):
 - - Q(s,a) <- Q(s,a) + αẟ<sub>t</sub>E<sub>t</sub>(s,a)
 
 ### Off-policy Learning
+- Evaluate target policy π(a|s) to compute v<sub>π</sub>(s) or q<sub>π</sub>(s,a) while following behaviour policy μ(a|s)
+- Reuse experience from old policies
+- Learn about optimal policy while following exploratory policy; learn about multiple policies while following one policy
+
+Estimate the expectation of a different distribution:
+- E<sub>X~P</sub>[f(X)] = ΣP(X)f(X) = ΣQ(X) [P(X)/Q(X)] f(X) = E<sub>X~Q</siub> [P(X)/Q(X)] f(X)
+
+Off-policy not working well on MC; on TD:
+- V(St) <- V(St) + α(π(At|St)/μ(At|St) * (R<sub>t+1</sub>+γV(St+1)) - V(St))
+
+Q-learning
+- Next action is chosen using behaviour policy At+1 ~ μ(.|St)
+- We consider alternative successor action A'~π(.|St)
+- Update Q(St,At) towards value of alternative action
+- Q(St,At) <- Q(St,At) + α((R<sub>t+1</sub>+γQ(St+1,A') - Q(St,At))
+
+- We now allow both behaviour and target policies to improve
+- The target policy π is greedy wrt Q(s,a)
+- - π(St+1) = argmax<sub>a'</sub> Q(St+1,a')
+- The behaviour policy μ is ϵ-greedy wrt Q(s,a)
+- The Q-learning target then simplifies:
+- - R<sub>t+1</sub>+γQ(S<sub>t+1</sub>,A') 
+- - = R<sub>t+1</sub>+γQ(S<sub>t+1</sub>,argmax<sub>a'</sub> Q(S<sub>t+1</sub>,a')) 
+- - = R<sub>t+1</sub>+ max<sub>a'</sub>γQ(S<sub>t+1</sub>,A')
+- Theorem: Q-learning control converges to the optimal action-value function, q*(s,a)

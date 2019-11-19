@@ -58,6 +58,43 @@ Sample-based planning:
 - - R<sub>t+1</sub> = R<sub>η</sub>(R<sub>t+1</sub> | S<sub>t</sub>,A<sub>t</sub>)
 - Apply model-free RL to sample: Monte-Carlo control, Sarsa, Q-learning
 - Sample-based planning methods usually more efficient
+
+Planning with an inaccurate model:
+- Given an imperfect model <P<sub>η</sub>, R<sub>η</sub>>≠ <P, R>
+- Performance of model-based RL is limited to optimal policy for approximate MDP <S,A,P<sub>η</sub>, R<sub>η</sub>>
+- ie model-based RL is only as good as th estimated model
+- When the model is inaccurate, planning process will compute a suboptimal policy
+- Solution 1: when model is wrong, use model-free RL
+- Solution 2: reason explicitly about model uncertainty
+
 ### Integrated Architectures
-4408
+Two sources of experience:
+- Real experience sampled from environment (true MDP)
+- - S' ~ P
+- - R = R<sub>s</sub><sup>a</sup>
+- Simulated experience sampled from model (approximate MDP)
+- - S' ~ P<sub>η</sub>(S'|S,A)
+- - R = R<sub>η</sub>(R|S,A)
+
+Dyna: learn a model from real experience, learn and plan value function (and/or policy) from real and simulated experience
+
 ### Simulation-based Search
+Forward search:
+- Forward search algorithms select the best action by lookahead
+- They build a search tree with the current state st at hte root
+- Using a model of the MDP to look ahead
+- No need to solve whole MDP just sub-MDP starting from now
+
+Simple Monte-Carlo Search
+- Given a model Mv and a simulation policy π
+- For each action a∈A
+- - Simulate K episodes from current (real) state s<sub>t</sub>: {s<sub>t</sub>, a, R<sub>t+1</sub><sup>k</sup>, S<sub>t+1</sub><sup>k</sup>, A<sub>t+1</sub><sup>k</sup>,...S<sub>T</sub><sup>k</sup>}<sub>k=1</sub><sup>K</sup> ~ M<sub>v</sub>,π
+- - Evaluate actions by mean return (Monte-Carlo evaluation): Q(s<sub>t</sub>,a) = (1/K)Σ<sub>k=1</sub><sup>K</sup> G<sub>t</sub>->q<sub>π</sub>(s<sub>t</sub>,a)
+- - Fit current (real) action with maximum value: a<sub>t</sub> = argmax <sub>a∈A</sub> Q(s<sub>t</sub>,a)
+
+Monte-Carlo Tree Search
+- Given a model Mv
+- Simulate K episodes from current state st using current simulation policy π: {s<sub>t</sub>, A<sub>t</sub><sup>k</sup>, R<sub>t+1</sub><sup>k</sup>, S<sub>t+1</sub><sup>k</sup>,...S<sub>T</sub><sup>k</sup>}<sub>k=1</sub><sup>K</sup> ~ M<sub>v</sub>,π
+- Build a search tree containing visited states and actions
+- Evaluate states Q(s,a) by mean return of episodes from s,a: Q(s,a) = (1/M(s,a))Σ
+- After search is finished, select current(real) action with maximum value in search tree: a<sub>t</sub>=argmax<sub>a∈A</sub> Q(s<sub>t</sub>,a)

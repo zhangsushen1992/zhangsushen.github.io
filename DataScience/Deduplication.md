@@ -184,4 +184,72 @@ scored_comparison_vectors.head(5)
 matches = comparison_vectors[scored_comparison_vectors['score'] >= 0.85]
 matches.head(5)
 ```
+But weights are obtained by guessing. To improve, we use supervised classification.
+We use SVM bacuase they are resilient to noise, can handle correlated features, and are robust to imbalanced training sets.
+```
+all_training_pairs = rl.FullIndex().index(df_training)
+matches_training_pairs = rl.BlockIndex('cluster').index(df_training)
 
+training_vectors = comp.compute(all_training_pairs, df_training)
+
+svm = rl.SVMClassifier()
+svm.learn(training_vectors, matches_training_vectors)
+```
+```
+svm_pairs = svm.predict(comparison_vectors)
+svm_found_pairs_set = set(svm_pairs)
+```
+SVM sometimes tricked by simple cases.
+
+### Alternative Tool: Active Learning Classification
+Active learning methods identify training examples that 'lead to maximal accuracy immprovements' both to train optimal classifier weights, as well as to find optimal indexing/blocking rules. 
+Python library: dedupe
+```
+import dedupe
+fields = {
+    {
+        'field': 'name',
+        'variable name': 'name',
+        'type': 'ShortString',
+        'has missing': True
+     },
+     {
+        'field':'addr',
+        'variable name':'addr',
+        'type':'ShortString',
+      },
+      {
+          'field': 'city',
+          'variable name':'city',
+          'type': 'ShortString',
+          'has missing': True
+        }
+  }
+```
+Dedupe has built-in-variables and also custom variables.
+```
+def addr_variations_comparator(x,y):
+    return 1.0-float(bool(x.intersection(y)))
+fields.extend([{
+    'field': 'addr_variations',
+    'variable name':'addr_variations',
+    'type':'Custom',
+    'comparator': addr_variations_comparator
+}])
+```
+Dedupe able to model interactions between fields. 
+```
+setting_filename = 'dedupe-setting.pickle'
+if os.path.exists(settings_filename):
+    with open(settings_filename,'rb') as sf:
+        deduper = dedupe.StaticDedupe(sf, num_cores=4)
+else:
+    deduper = dedupe.Dedupe(fields, num_cores=4)
+```
+```
+training_input_output = 'training-input-output.txt'
+if os.path.exists(training_input_output):
+    with open(training_input_output) as t:
+        txt = t.read()
+deduper.data_model.predicates()
+```
